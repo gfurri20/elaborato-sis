@@ -6,7 +6,7 @@
 .i 6 #inputs
 .o 4 #outpus
 .s 20 #numero stati
-.p 57
+.p 58 #numero di transazioni
 .r LIBERO #reset
 
 #Init bancomat
@@ -72,16 +72,16 @@
 #Tutti dc, è già sbagliato
 ------ NO5 NO6 0000
 #BLOCCO BANCOMAT
------- NO6 BLOCCO 0010
+------ NO6 LIBERO 0010
 #!5, dalla seconda cifra
 -1---- SI5 NO6 0000
 -00--- SI5 NO6 0000
 -0100- SI5 NO6 0000
 -011-- SI5 NO6 0000
--1---- SI6 BLOCCO 0010
--01--- SI6 BLOCCO 0010
--001-- SI6 BLOCCO 0010
--0001- SI6 BLOCCO 0010
+-1---- SI6 LIBERO 0010
+-01--- SI6 LIBERO 0010
+-001-- SI6 LIBERO 0010
+-0001- SI6 LIBERO 0010
 #---Gestione erograzione--------
 #Abilitata
 -----1 OK EROGA 0100
