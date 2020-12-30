@@ -1,0 +1,58 @@
+.model SHIFT16
+.inputs A15 A14 A13 A12 A11 A10 A9 A8 A7 A6 A5 A4 A3 A2 A1 A0
+.outputs O15 O14 O13 O12 O11 O10 O9 O8 O7 O6 O5 O4 O3 O2 O1 O0
+
+.subckt UNO O=DIR
+
+.subckt NOT A=DIR O=NDIR
+.subckt AND A=A15 B=DIR O=1X15
+.subckt AND A=A14 B=DIR O=1X14
+.subckt AND A=A14 B=NDIR O=O15
+.subckt AND A=A13 B=DIR O=1X13
+.subckt AND A=A13 B=NDIR O=0X13
+.subckt AND A=A12 B=DIR O=1X12
+.subckt AND A=A12 B=NDIR O=0X12
+.subckt AND A=A11 B=DIR O=1X11
+.subckt AND A=A11 B=NDIR O=0X11
+.subckt AND A=A10 B=DIR O=1X10
+.subckt AND A=A10 B=NDIR O=0X10
+.subckt AND A=A9 B=DIR O=1X9
+.subckt AND A=A9 B=NDIR O=0X9
+.subckt AND A=A8 B=DIR O=1X8
+.subckt AND A=A8 B=NDIR O=0X8
+.subckt AND A=A7 B=DIR O=1X7
+.subckt AND A=A7 B=NDIR O=0X7
+.subckt AND A=A6 B=DIR O=1X6
+.subckt AND A=A6 B=NDIR O=0X6
+.subckt AND A=A5 B=DIR O=1X5
+.subckt AND A=A5 B=NDIR O=0X5
+.subckt AND A=A4 B=DIR O=1X4
+.subckt AND A=A4 B=NDIR O=0X4
+.subckt AND A=A3 B=DIR O=1X3
+.subckt AND A=A3 B=NDIR O=0X3
+.subckt AND A=A2 B=DIR O=1X2
+.subckt AND A=A2 B=NDIR O=0X2
+.subckt AND A=A1 B=DIR O=O0
+.subckt AND A=A1 B=NDIR O=0X1
+.subckt AND A=A0 B=NDIR O=0X0
+
+.subckt OR A=1X15 B=0X13 O=O14
+.subckt OR A=1X14 B=0X12 O=O13
+.subckt OR A=1X13 B=0X11 O=O12
+.subckt OR A=1X12 B=0X10 O=O11
+.subckt OR A=1X11 B=0X9 O=O10
+.subckt OR A=1X10 B=0X8 O=O9
+.subckt OR A=1X9 B=0X7 O=O8
+.subckt OR A=1X8 B=0X6 O=O7
+.subckt OR A=1X7 B=0X5 O=O6
+.subckt OR A=1X6 B=0X4 O=O5
+.subckt OR A=1X5 B=0X3 O=O4
+.subckt OR A=1X4 B=0X2 O=O3
+.subckt OR A=1X3 B=0X1 O=O2
+.subckt OR A=1X2 B=0X0 O=O1
+
+.search uno.blif
+.search not.blif
+.search and.blif
+.search or.blif
+.end
