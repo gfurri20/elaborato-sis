@@ -1,0 +1,8 @@
+.model MUX1
+.inputs A B S
+.outputs O
+
+.names S A B O
+11- 1
+0-1 1
+.end
