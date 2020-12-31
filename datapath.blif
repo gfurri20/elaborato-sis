@@ -1,28 +1,50 @@
 .model DATAPATH
-.inputs CHECK_DISPONIBILITA A9 A8 A7 A6 A5 A4 A3 A2 A1 A0 B15 B14 B13 B11 B12 B10 B9 B8 B7 B6 B5 B4 B3 B2 B1 B0 
-.outputs CASH_OK O9 O8 O7 O6 O5 O4 O3 O2 O1 O0
+.inputs CHECK_DISPONIBILITA INIT REINSERIRE_CODICE A9 A8 A7 A6 A5 A4 A3 A2 A1 A0 B15 B14 B13 B11 B12 B10 B9 B8 B7 B6 B5 B4 B3 B2 B1 B0
+.outputs CASH_OK BLOCCARE O9 O8 O7 O6 O5 O4 O3 O2 O1 O0
 #CHECK: Check_Disp
-#O10: Cash_OK 
-#O: Cash_da_Erog 
-#A: Cash_Req 
+#O10: Cash_OK
+#O: Cash_da_Erog
+#A: Cash_Req
 #B: Cash_Disp
 #C: B post shiftDx
 #D: C post shiftDx
-#X: A in registro
-#MIN: minore si 1/0 no 
-#OK: minore 1/0 non minore
-#Z: zero,0 infigha lo 0
+#MIN: minore si 1/0 no
+#CASH_OK: minore 1/0 non minore
+#INIT: Starta l'operazione, resetta il registro del contatore
+#ADDENDO: numero (0 o 1) da sommare al contatore
+#REGIN: entrata del registro a 2 bit
+#REGOUT: uscita del registro a 2 bit
+#INCR: uscita del sommatore a 2 bit (numero incrementato di 1)
+#U: uno
+#Z: zero
 
+#Costanti
 .subckt ZERO O=Z
+.subckt UNO O=U
+#Check soldi
 .subckt SHIFT16 A15=B15 A14=B14 A13=B13 A12=B12 A11=B11 A10=B10 A9=B9 A8=B8 A7=B7 A6=B6 A5=B5 A4=B4 A3=B3 A2=B2 A1=B1 A0=B0 O15=C15 O14=C14 O13=C13 O12=C12 O11=C11 O10=C10 O9=C9 O8=C8 O7=C7 O6=C6 O5=C5 O4=C4 O3=C3 O2=C2 O1=C1 O0=C0
 .subckt SHIFT16 A15=C15 A14=C14 A13=C13 A12=C12 A11=C11 A10=C10 A9=C9 A8=C8 A7=C7 A6=C6 A5=C5 A4=C4 A3=C3 A2=C2 A1=C1 A0=C0 O15=D15 O14=D14 O13=D13 O12=D12 O11=D11 O10=D10 O9=D9 O8=D8 O7=D7 O6=D6 O5=D5 O4=D4 O3=D3 O2=D2 O1=D1 O0=D0
 .subckt MINORE A15=Z A14=Z A13=Z A12=Z A11=Z A10=Z A9=A9 A8=A8 A7=A7 A6=A6 A5=A5 A4=A4 A3=A3 A2=A2 A1=A1 A0=A0 B15=D15 B14=D14 B13=D13 B12=D12 B11=D11 B10=D10 B9=D9 B8=D8 B7=D7 B6=D6 B5=D5 B4=D4 B3=D3 B2=D2 B1=D1 B0=D0 O=MIN
 .subckt MUX1 A=MIN B=Z S=CHECK_DISPONIBILITA O=CASH_OK
 .subckt MUX10 A9=A9 A8=A8 A7=A7 A6=A6 A5=A5 A4=A4 A3=A3 A2=A2 A1=A1 A0=A0 B9=Z B8=Z B7=Z B6=Z B5=Z B4=Z B3=Z B2=Z B1=Z B0=Z S=CASH_OK O9=O9 O8=O8 O7=O7 O6=O6 O5=O5 O4=O4 O3=O3 O2=O2 O1=O1 O0=O0
 
+#Counter tentativi
+.subckt MUX2 A1=Z A0=Z B1=INCR1 B0=INCR0 S=INIT O1=REGIN1 O0=REGIN0
+.subckt REGISTRO2 A1=REGIN1 A0=REGIN0 O1=REGOUT1 O0=REGOUT0
+.subckt MUX2 A1=Z A0=U B1=Z B0=Z S=REINSERIRE_CODICE O1=ADDENDO1 O0=ADDENDO0
+.subckt SOMMATORE2 A1=REGOUT1 A0=REGOUT0 B1=ADDENDO1 B0=ADDENDO0 CIN=Z O1=INCR1 O0=INCR0 COUT=COUT
+.subckt UGUALE2 A1=REGOUT1 A0=REGOUT0 B1=U B0=Z O=BLOCCARE
+
+
 .search shift16.blif
 .search minore.blif
 .search mux1.blif
 .search mux10.blif
 .search zero.blif
+.search uno.blif
+.search mux2.blif
+.search registro2.blif
+.search sommatore2.blif
+.search uguale2.blif
+
 .end

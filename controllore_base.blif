@@ -1,98 +1,52 @@
 .model controllore_base
-.inputs BANCOMAT_INSERITO CODICE3 CODICE2 CODICE1 CODICE0 CASH_OK
-.outputs REINSERIRE_CODICE ABILITA_EROGRAZIONE BLOCCO_BANCOMAT CHECK_DISPONIBILITA
+.inputs BANCOMAT_INSERITO CODICE3 CODICE2 CODICE1 CODICE0 CASH_OK BLOCCARE
+.outputs REINSERIRE_CODICE ABILITA_EROGAZIONE BLOCCO_BANCOMAT CHECK_DISPONIBILITA INIT
 
 .start_kiss
-.i 6 #inputs
-.o 4 #outpus
-.s 20 #numero stati
-.p 58 #numero di transazioni
+.i 7 #inputs
+.o 5 #outpus
+.s 7 #numero stati
+.p 26 #numero di transazioni
 .r LIBERO #reset
 
 #Init bancomat
-0----- LIBERO LIBERO 0000
-1----- LIBERO OCCUPATO 0000
-#---Primo tentativo-------------
+0------ LIBERO LIBERO 00000
+1------ LIBERO OCCUPATO 00001
+#---Inserimento Codice-------------
 #Codice corretto
--0101- OCCUPATO SI1 0000
--0101- SI1 SI2 0000
--0000- SI2 OK 0001
+-0101-- OCCUPATO SI1 00000
+-0101-- SI1 SI2 00000
+-0000-- SI2 OK 00010
 #Codice errato
 #!5
--1---- OCCUPATO NO1 0000
--00--- OCCUPATO NO1 0000
--0100- OCCUPATO NO1 0000
--011-- OCCUPATO NO1 0000
+-1----- OCCUPATO NO1 00000
+-00---- OCCUPATO NO1 00000
+-0100-- OCCUPATO NO1 00000
+-011--- OCCUPATO NO1 00000
 #Tutti dc, è già sbagliato
------- NO1 NO2 0000
------- NO2 RIP2 1000
+------- NO1 NO2 00000
+------0 NO2 OCCUPATO 10000
 #!5, dalla seconda cifra
--1---- SI1 NO2 0000
--00--- SI1 NO2 0000
--0100- SI1 NO2 0000
--011-- SI1 NO2 0000
--1---- SI2 RIP2 1000
--01--- SI2 RIP2 1000
--001-- SI2 RIP2 1000
--0001- SI2 RIP2 1000
-#---Secondo tentativo-------------
-#Codice corretto
--0101- RIP2 SI3 0000
--0101- SI3 SI4 0000
--0000- SI4 OK 0001
-#Codice errato
-#!5
--1---- RIP2 NO3 0000
--00--- RIP2 NO3 0000
--0100- RIP2 NO3 0000
--011-- RIP2 NO3 0000
-#Tutti dc, è già sbagliato
------- NO3 NO4 0000
------- NO4 RIP3 1000
-#!5, dalla seconda cifra
--1---- SI3 NO4 0000
--00--- SI3 NO4 0000
--0100- SI3 NO4 0000
--011-- SI3 NO4 0000
--1---- SI4 RIP3 1000
--01--- SI4 RIP3 1000
--001-- SI4 RIP3 1000
--0001- SI4 RIP3 1000
-#---Terzo tentativo-------------
-#Codice corretto
--0101- RIP3 SI5 0000
--0101- SI5 SI6 0000
--0000- SI6 OK 0001
-#Codice errato
-#!5
--1---- RIP3 NO5 0000
--00--- RIP3 NO5 0000
--0100- RIP3 NO5 0000
--011-- RIP3 NO5 0000
-#Tutti dc, è già sbagliato
------- NO5 NO6 0000
-#BLOCCO BANCOMAT
------- NO6 LIBERO 0010
-#!5, dalla seconda cifra
--1---- SI5 NO6 0000
--00--- SI5 NO6 0000
--0100- SI5 NO6 0000
--011-- SI5 NO6 0000
--1---- SI6 LIBERO 0010
--01--- SI6 LIBERO 0010
--001-- SI6 LIBERO 0010
--0001- SI6 LIBERO 0010
+-1----- SI1 NO2 00000
+-00---- SI1 NO2 00000
+-0100-- SI1 NO2 00000
+-011--- SI1 NO2 00000
+#!0
+-1----0 SI2 OCCUPATO 10000
+-01---0 SI2 OCCUPATO 10000
+-001--0 SI2 OCCUPATO 10000
+-0001-0 SI2 OCCUPATO 10000
+#---Blocco Bancomat------------
+------1 NO2 LIBERO 00100
+-1----1 SI2 LIBERO 00100
+-01---1 SI2 LIBERO 00100
+-001--1 SI2 LIBERO 00100
+-0001-1 SI2 LIBERO 00100
 #---Gestione erograzione--------
 #Abilitata
------1 OK EROGA 0100
+-----1- OK LIBERO 01000
 #NON abilitata
------0 OK FINE 0000
-#---Fine-----------------------
------- EROGA FINE 0000
-#carta rimossa
-0----- FINE LIBERO 0000
-#carta da estrarre
-1----- FINE FINE 0000
+-----0- OK LIBERO 00000
 .end_kiss
 
 .end
