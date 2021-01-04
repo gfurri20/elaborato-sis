@@ -16,7 +16,7 @@
 #Codice corretto
 -0101-- OCCUPATO SI1 00000
 -0101-- SI1 SI2 00000
--0000-- SI2 OK 00010
+-0000-- SI2 OK 00000
 #Codice errato
 #!5
 -1----- OCCUPATO NO1 00000
@@ -44,9 +44,9 @@
 -0001-1 SI2 LIBERO 00100
 #---Gestione erograzione--------
 #Abilitata
------1- OK LIBERO 01000
+-----1- OK LIBERO 01010
 #NON abilitata
------0- OK LIBERO 00000
+-----0- OK LIBERO 00010
 .end_kiss
 
 .end

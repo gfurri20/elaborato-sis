@@ -1,0 +1,105 @@
+.model CONTROLLORE
+.inputs BANCOMAT_INSERITO CODICE3 CODICE2 CODICE1 CODICE0 CASH_OK BLOCCARE
+.outputs REINSERIRE_CODICE ABILITAZIONE_EROGAZIONE BLOCCO_BANCOMAT \
+CHECK_DISPONIBILITA INIT
+.latch    [17] LatchOut_v7   1
+.latch    [18] LatchOut_v8   1
+.latch    [19] LatchOut_v9   0
+.start_kiss
+.i 7
+.o 5
+.p 26
+.s 7
+.r LIBERO
+0------ LIBERO LIBERO 00000
+1------ LIBERO OCCUPATO 00001
+-0101-- OCCUPATO SI1 00000
+-1----- OCCUPATO NO1 00000
+-00---- OCCUPATO NO1 00000
+-0100-- OCCUPATO NO1 00000
+-011--- OCCUPATO NO1 00000
+-0101-- SI1 SI2 00000
+-1----- SI1 NO2 00000
+-00---- SI1 NO2 00000
+-0100-- SI1 NO2 00000
+-011--- SI1 NO2 00000
+------- NO1 NO2 00000
+-0000-- SI2 OK 00000
+-1----0 SI2 OCCUPATO 10000
+-01---0 SI2 OCCUPATO 10000
+-001--0 SI2 OCCUPATO 10000
+-0001-0 SI2 OCCUPATO 10000
+-1----1 SI2 LIBERO 00100
+-01---1 SI2 LIBERO 00100
+-001--1 SI2 LIBERO 00100
+-0001-1 SI2 LIBERO 00100
+------0 NO2 OCCUPATO 10000
+------1 NO2 LIBERO 00100
+-----1- OK LIBERO 01010
+-----0- OK LIBERO 00010
+.end_kiss
+.latch_order LatchOut_v7 LatchOut_v8 LatchOut_v9
+.code LIBERO 110
+.code OCCUPATO 111
+.code SI1 000
+.code NO1 100
+.code SI2 001
+.code NO2 101
+.code OK 011
+.names CODICE2 CODICE0 LatchOut_v7 LatchOut_v9 [18] CHECK_DISPONIBILITA [34] \
+[37] [17]
+-----1-- 1
+------1- 1
+--10---- 1
+0---0--- 1
+-0-----1 1
+----1--1 1
+.names LatchOut_v8 LatchOut_v9 CHECK_DISPONIBILITA [33] [18]
+--1- 1
+---1 1
+10-- 1
+.names LatchOut_v8 BLOCCO_BANCOMAT INIT [19]
+--1 1
+00- 1
+.names BLOCCARE [33] [37] REINSERIRE_CODICE
+011 1
+.names CASH_OK CHECK_DISPONIBILITA ABILITAZIONE_EROGAZIONE
+11 1
+.names BLOCCARE [33] [37] BLOCCO_BANCOMAT
+111 1
+.names LatchOut_v7 LatchOut_v8 CHECK_DISPONIBILITA
+01 1
+.names BANCOMAT_INSERITO LatchOut_v8 LatchOut_v9 INIT
+110 1
+.names LatchOut_v8 LatchOut_v9 [33]
+01 1
+.names CODICE3 CODICE1 [34]
+1- 1
+-1 1
+.names CODICE2 CODICE0 LatchOut_v7 [34] [37]
+1--- 1
+-1-- 1
+--1- 1
+---1 1
+.exdc 
+.inputs BANCOMAT_INSERITO CODICE3 CODICE2 CODICE1 CODICE0 CASH_OK BLOCCARE \
+LatchOut_v7 LatchOut_v8 LatchOut_v9
+.outputs [17] [18] [19] REINSERIRE_CODICE ABILITAZIONE_EROGAZIONE \
+BLOCCO_BANCOMAT CHECK_DISPONIBILITA INIT
+.names LatchOut_v7 LatchOut_v8 LatchOut_v9 [17]
+010 1
+.names LatchOut_v7 LatchOut_v8 LatchOut_v9 [18]
+010 1
+.names LatchOut_v7 LatchOut_v8 LatchOut_v9 [19]
+010 1
+.names LatchOut_v7 LatchOut_v8 LatchOut_v9 REINSERIRE_CODICE
+010 1
+.names LatchOut_v7 LatchOut_v8 LatchOut_v9 ABILITAZIONE_EROGAZIONE
+010 1
+.names LatchOut_v7 LatchOut_v8 LatchOut_v9 BLOCCO_BANCOMAT
+010 1
+.names LatchOut_v7 LatchOut_v8 LatchOut_v9 CHECK_DISPONIBILITA
+010 1
+.names LatchOut_v7 LatchOut_v8 LatchOut_v9 INIT
+010 1
+.end
