@@ -1,0 +1,11 @@
+.model MUX2
+.inputs A1 A0 B1 B0 S
+.outputs O1 O0
+
+#Con S=1 esce A
+.subckt MUX1 A=A1 B=B1 S=S O=O1
+.subckt MUX1 A=A0 B=B0 S=S O=O0
+
+.search ./componenti/mux1.blif
+
+.end

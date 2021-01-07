@@ -51,8 +51,8 @@
 .subckt OR A=1X3 B=0X1 O=O2
 .subckt OR A=1X2 B=0X0 O=O1
 
-.search uno.blif
-.search not.blif
-.search and.blif
-.search or.blif
+.search ./componenti/uno.blif
+.search ./componenti/not.blif
+.search ./componenti/and.blif
+.search ./componenti/or.blif
 .end
