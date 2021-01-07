@@ -7,5 +7,5 @@
 
 .end
 
-.search sommatore1.blif
+.search ./componenti/sommatore1.blif
 

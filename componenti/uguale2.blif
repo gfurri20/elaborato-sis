@@ -10,4 +10,4 @@
 
 .end
 
-.search xnor.blif
+.search ./componenti/xnor.blif

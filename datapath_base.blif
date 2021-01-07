@@ -36,15 +36,15 @@
 .subckt MUX1 A=MIN B=Z S=CHECK_DISPONIBILITA O=CASH_OK
 .subckt MUX10 A9=A9 A8=A8 A7=A7 A6=A6 A5=A5 A4=A4 A3=A3 A2=A2 A1=A1 A0=A0 B9=Z B8=Z B7=Z B6=Z B5=Z B4=Z B3=Z B2=Z B1=Z B0=Z S=CASH_OK O9=O9 O8=O8 O7=O7 O6=O6 O5=O5 O4=O4 O3=O3 O2=O2 O1=O1 O0=O0
 
-.search shift16.blif
-.search minore.blif
-.search mux1.blif
-.search mux10.blif
-.search zero.blif
-.search uno.blif
-.search mux2.blif
-.search registro2.blif
-.search sommatore2.blif
-.search uguale2.blif
+.search ./componenti/shift16.blif
+.search ./componenti/minore.blif
+.search ./componenti/mux1.blif
+.search ./componenti/mux10.blif
+.search ./componenti/zero.blif
+.search ./componenti/uno.blif
+.search ./componenti/mux2.blif
+.search ./componenti/registro2.blif
+.search ./componenti/sommatore2.blif
+.search ./componenti/uguale2.blif
 
 .end
